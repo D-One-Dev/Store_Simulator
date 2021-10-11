@@ -12,6 +12,7 @@ public class HealthController : MonoBehaviour
         if (health == 0)
         {
             gameObject.GetComponent<PlayerController>().isAlive = false;
+            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             gameOver.enabled = true;
         }
     }

@@ -11,6 +11,8 @@ TagManager:
   - Shelf
   - RoadPoint
   - Customer
+  - ExitPoint
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX
@@ -18,10 +20,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Customers
+  - CustomerAI
+  - Player
+  - Walls
   - 
   - 
   - 

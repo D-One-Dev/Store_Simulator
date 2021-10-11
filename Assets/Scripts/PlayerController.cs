@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
                 Destroy(box.gameObject);
                 warehouse.GetComponent<WarehouseController>().SpawnBox();
         }
-        if (!isAlive) SceneManager.LoadScene("Game");
+        if (!isAlive) SceneManager.LoadScene("Gameplay");
     }
     private void DropBox()
     {
