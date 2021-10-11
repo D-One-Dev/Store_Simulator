@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameStart : MonoBehaviour
 {
+    //Input System
     private NewInput PI;
     private void Awake()
     {
@@ -15,8 +14,10 @@ public class GameStart : MonoBehaviour
     { PI.Enable(); }
     private void OnDisable()
     { PI.Disable(); }
+    //начало игры
     private void StartGame()
     {
+        //загрузка сцены геймплея
         SceneManager.LoadScene("Gameplay");
     }
 }
