@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    //GameObject игрока
+    //player GameObject
     [SerializeField] private GameObject player;
-    //степень плавности движения камеры
+    //camera move smoothness
     [SerializeField] private float smoothness;
     void FixedUpdate()
     {
-        // получаю сглаженное значение для движения камеры
+        //getting smoothed position
         float moveX = Mathf.Lerp(transform.position.x, player.transform.position.x, smoothness);
         float moveY = Mathf.Lerp(transform.position.y, player.transform.position.y, smoothness);
-        //двигаю камеру
+        //moving the camera
         transform.position = new Vector3(moveX, moveY, transform.position.z);
     }
 }

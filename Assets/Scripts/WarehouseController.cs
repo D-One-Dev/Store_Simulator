@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class WarehouseController : MonoBehaviour
 {
-    //префаб коробки
+    //box prefab
     [SerializeField] private GameObject[] boxes;
-    //текущая коробка
+    //current box
     public GameObject currentBox;
     void Start()
     {
-        //спавн новой коробки
+        //new box spawn
         SpawnBox();
     }
-    //спавн новой коробки
+    //new box spawn
     public void SpawnBox()
     {
         currentBox = Instantiate(boxes[Random.Range(0, boxes.Length)], transform.position, Quaternion.identity);

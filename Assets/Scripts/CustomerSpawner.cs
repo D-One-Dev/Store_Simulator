@@ -2,33 +2,33 @@ using UnityEngine;
 
 public class CustomerSpawner : MonoBehaviour
 {
-    //префаб покупателя
+    //customer prefab
     [SerializeField] private GameObject customerPrefab;
-    //минимаьная и максимальная задержки спавна покупателя
+    //min and max spawn cooldown
     [SerializeField] private float minCD, maxCD;
-    //таймер и время до следующего спавна
+    //timer, time before next spawn
     public float timer, resetTime;
-    //первая точка пути
+    //first road point
     public GameObject firstRoadPoint;
     void Start()
     {
-        //получаем случайное время респавна
+        //getting random respawn time
         resetTime = Random.Range(minCD, maxCD);
     }
     void FixedUpdate()
     {
-        //счёт времени
+        //time count
         timer += Time.fixedDeltaTime;
-        //спавн нового покупателя
+        //new customer spawn
         if(timer >= resetTime)
         {
-            //создание нового GameObject
+            //creating a new GameObject
             GameObject newCustomer = Instantiate(customerPrefab, transform.position, Quaternion.identity);
-            //передаём покупателю первую точку маршрута
+            //handing the first point over to the customer
             newCustomer.GetComponent<CustomerBody>().target = firstRoadPoint;
-            //получаем случайное время респавна
+            //getting random respawn time
             resetTime = Random.Range(minCD, maxCD);
-            //сбрасываем таймер
+            //timer reset
             timer = 0f;
         }
     }

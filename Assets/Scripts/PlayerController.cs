@@ -3,15 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    //скорость движения игрока
+    //player move speed
     [SerializeField] private float speed;
-    //точка рук игрока, GameObject склада
+    //player's hands point, warehouse GameObject
     [SerializeField] private GameObject playerHands, warehouse;
-    //находится ли игрок на складе
+    //is player on the warehouse
     private bool isOnWarehouse;
-    //коробка
+    //the box
     private GameObject box;
-    //находится ли игрок на складе, жив ли игрок
+    //is the player on the shelf, is player alive
     public bool isOnShelf, isAlive = true;
     //Input System
     private NewInput PI;
@@ -26,13 +26,13 @@ public class PlayerController : MonoBehaviour
     { PI.Disable(); }
     void FixedUpdate()
     {
-        //если игрок жив
+        //if the player is alive
         if (isAlive)
         { 
-            //считываем нажатия клавиш
+            //reading pressed keys
             float moveX = PI.Gameplay.MoveX.ReadValue<float>();
             float moveY = PI.Gameplay.MoveY.ReadValue<float>();
-            //поворот игрока
+            //player rotation
             if(moveX != 0)
             {
                 if (moveX == 1) transform.rotation = Quaternion.Euler(0, 0, -90);
@@ -43,58 +43,58 @@ public class PlayerController : MonoBehaviour
                 if(moveY == 1) transform.rotation = Quaternion.Euler(0, 0, 0);
                 else if (moveY == -1) transform.rotation = Quaternion.Euler(0, 0, 180);
             }
-            //движение игрока
+            //player movement
             Vector2 move = new Vector2(moveX * speed, moveY * speed);
             gameObject.GetComponent<Rigidbody2D>().velocity = move;
-            //перемещение коробки за игрком
+            //box moves with player
             if (box != null) box.transform.position = playerHands.transform.position;
         }
     }
-    //всё что активируется кнопкой Е
+    //everything that is activated vith E button
     private void Use()
     {
-        //если игрок на складе
+        //if the player is on the warehouse
         if (isOnWarehouse)
         {
-            //взять коробку
+            //get the box
             box = warehouse.GetComponent<WarehouseController>().currentBox;
         }
-        //если игрок у полки
+        //if the player is on the shelf
         if (isOnShelf)
         {
-            //удалить коробку, заспавнить новую    
+            //delete the box, spawn new one
             Destroy(box.gameObject);
             warehouse.GetComponent<WarehouseController>().SpawnBox();
         }
-        //если игрок мёртв перезапустить уровень
+        //if the palyer is dead restart the level
         if (!isAlive) SceneManager.LoadScene("Gameplay");
     }
-    //потеря коробки
+    //box drop
     private void DropBox()
     {
         if (box != null)
         {
-            //удалить коробку, заспавнить новую 
+            //delete the box, spawn new one
             Destroy(box);
             warehouse.GetComponent<WarehouseController>().SpawnBox();
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //коллизия со складом
+        //warehouse collision
         if (collision.gameObject.CompareTag("Warehouse")) isOnWarehouse = true;
-        //столкновение с покупателем
+        //customer collision
         if (collision.gameObject.CompareTag("Customer"))
         { 
-            //потеря коробки
+            //drop the box
             DropBox();
-            //потеря хп
+            //loose hp
             gameObject.GetComponent<HealthController>().LooseHp();
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        //отход от склада
+        //player leaves the warehouse
         if (collision.gameObject.CompareTag("Warehouse")) isOnWarehouse = false;
     }
 }

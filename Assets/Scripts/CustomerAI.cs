@@ -2,42 +2,42 @@ using UnityEngine;
 
 public class CustomerAI : MonoBehaviour
 {
-    //GameObject тела покупателя
+    //player's body GameObject
     [SerializeField] private GameObject customer;
-    //минимальное и максималльное кол-во ходов покупателя
+    //min and max amount of customer's moves
     [SerializeField] private int minMoves, maxMoves;
-    //оставшееся кол-во ходов
+    //moves remained
     private int moves;
-    //уходит ли покупатель из магазина
+    //is customer leaving the shop
     public bool isLeaving;
-    //цель движения покупателя
+    //customer's move target
     public GameObject target;
     void Start()
     {
-        //выдаём покупателю случайное кол-во ходов
+        //get a random amount of moves
         moves = Random.Range(minMoves, maxMoves + 1);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //столкновение с точкой маршрута
+        //road point collision
         if(collision.gameObject.CompareTag("RoadPoint"))
         {
-            //пинаем точку маршрута чтобы получить новую цель
+            //getting a new road point
             collision.gameObject.GetComponent<RoadPointController>().ReturnNewPoint(gameObject, isLeaving);
-            //передаём новую цель телу покупателя
+            //hand a new road point over to customer's body
             customer.GetComponent<CustomerBody>().target = target;
-            //уменьшаем кол-во оставшихся ходов
+            //decreasing the amount of moves left
             moves--;
-            //если ходов не осталось то покупатель уходит
+            //if there are no more moves the customer leaves
             if (moves <= 0)
             {
                 isLeaving = true;
             }
         }
-        //столкновение с конечной точкой
+        //end point collision
         else if(collision.gameObject.CompareTag("ExitPoint"))
         {
-            //удаляем GameObject покупателя
+            //deleting customer GameObject
             Destroy(customer.gameObject);
         }
     }

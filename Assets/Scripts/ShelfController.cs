@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class ShelfController : MonoBehaviour
 {
-    //GameObject игрока
+    //player GameObject
     [SerializeField] private GameObject player;
-    //цвет полки
+    //shelf color
     public string shelfColor;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //игрок подошёл к полке
+        //player comes to the shelf
         if (collision.gameObject.CompareTag(shelfColor)) player.GetComponent<PlayerController>().isOnShelf = true;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        //игрок отошёл от полки
+        //player goes away from the shelf
         if (collision.gameObject.CompareTag(shelfColor)) player.GetComponent<PlayerController>().isOnShelf = false;
     }
 }

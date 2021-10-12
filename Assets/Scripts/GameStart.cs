@@ -14,10 +14,10 @@ public class GameStart : MonoBehaviour
     { PI.Enable(); }
     private void OnDisable()
     { PI.Disable(); }
-    //начало игры
+    //game start
     private void StartGame()
     {
-        //загрузка сцены геймплея
+        //gameplay scene load
         SceneManager.LoadScene("Gameplay");
     }
 }

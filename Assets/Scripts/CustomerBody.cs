@@ -2,35 +2,35 @@ using UnityEngine;
 
 public class CustomerBody : MonoBehaviour
 {
-    //скорость передвижения покупателя
+    //customer move speed
     [SerializeField] private float speed;
-    //цель движения покупателя
+    //customer move target
     public GameObject target;
     void Start()
     {
-        //покупатель получает случайный цвет
+        //customer gets random color
         GetComponent<SpriteRenderer>().color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0, 1f));
     }
     void FixedUpdate()
     {
-        //движение покупателя
+        //customer movement
         Move();
     }
-    //движение покупателя
+    //customer movement
     private void Move()
     {
-        //еси есть цель
+        //if there is a target
         if (target != null)
         {
-            //получаем плавную скорость движения
+            //getting smoothed move speed
             float moveX = (target.transform.position.x - transform.position.x) * 5;
             float moveY = (target.transform.position.y - transform.position.y) * 5;
-            //ограничиваем максимальную скорость движения
+            //max speed limit
             if (moveX > speed) moveX = speed;
             if (moveX < -speed) moveX = -speed;
             if (moveY > speed) moveY = speed;
             if (moveY < -speed) moveY = -speed;
-            //двигаем покупателя
+            //moving the customer
             GetComponent<Rigidbody2D>().velocity = new Vector2(moveX, moveY);
         }
     }

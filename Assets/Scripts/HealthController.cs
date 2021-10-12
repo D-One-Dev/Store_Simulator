@@ -3,25 +3,25 @@ using UnityEngine.UI;
 
 public class HealthController : MonoBehaviour
 {
-    //текст поражения, текст с хп
+    //gameover text, hp text
     [SerializeField] private Text gameOver, healthTxt;
-    //кол-во хп
+    //amount of hp
     private int health = 3;
-    //потеря хп
+    //hp loose
     public void LooseHp()
     {
-        //отнимаем хп
+        //decreasing hp
         health -= 1;
-        //меняем текст
+        //refreshing the text
         healthTxt.text = "Health: " + health.ToString();
-        //смерть
+        //death
         if (health == 0)
         {
-            //отключаем логику игрока
+            //disabling player's logic
             gameObject.GetComponent<PlayerController>().isAlive = false;
-            //сбрасываем игроку velocity чтобы он не етал по карте (не помогает)
+            //resetting player's velocity so he doesn't fly around the map (not working)
             gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            //показываем текст поражения
+            //showing gameover text
             gameOver.enabled = true;
         }
     }
