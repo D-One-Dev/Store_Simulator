@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     {
         PI = new NewInput();
         PI.Gameplay.Use.performed += context => Use();
+        PI.Gameplay.Exit.performed += context => SceneManager.LoadScene("Menu");
     }
     private void OnEnable()
     { PI.Enable(); }

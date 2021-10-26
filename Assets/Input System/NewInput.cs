@@ -41,6 +41,14 @@ public class @NewInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Exit"",
+                    ""type"": ""Button"",
+                    ""id"": ""24e940f1-1d92-40af-9c5c-d71cac3c79fb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -120,6 +128,17 @@ public class @NewInput : IInputActionCollection, IDisposable
                     ""action"": ""Use"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11c38b54-6db1-4a13-9471-2195261c9ddb"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -137,6 +156,7 @@ public class @NewInput : IInputActionCollection, IDisposable
         m_Gameplay_MoveX = m_Gameplay.FindAction("MoveX", throwIfNotFound: true);
         m_Gameplay_MoveY = m_Gameplay.FindAction("MoveY", throwIfNotFound: true);
         m_Gameplay_Use = m_Gameplay.FindAction("Use", throwIfNotFound: true);
+        m_Gameplay_Exit = m_Gameplay.FindAction("Exit", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -189,6 +209,7 @@ public class @NewInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_MoveX;
     private readonly InputAction m_Gameplay_MoveY;
     private readonly InputAction m_Gameplay_Use;
+    private readonly InputAction m_Gameplay_Exit;
     public struct GameplayActions
     {
         private @NewInput m_Wrapper;
@@ -196,6 +217,7 @@ public class @NewInput : IInputActionCollection, IDisposable
         public InputAction @MoveX => m_Wrapper.m_Gameplay_MoveX;
         public InputAction @MoveY => m_Wrapper.m_Gameplay_MoveY;
         public InputAction @Use => m_Wrapper.m_Gameplay_Use;
+        public InputAction @Exit => m_Wrapper.m_Gameplay_Exit;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -214,6 +236,9 @@ public class @NewInput : IInputActionCollection, IDisposable
                 @Use.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUse;
                 @Use.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUse;
                 @Use.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUse;
+                @Exit.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnExit;
+                @Exit.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnExit;
+                @Exit.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnExit;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -227,6 +252,9 @@ public class @NewInput : IInputActionCollection, IDisposable
                 @Use.started += instance.OnUse;
                 @Use.performed += instance.OnUse;
                 @Use.canceled += instance.OnUse;
+                @Exit.started += instance.OnExit;
+                @Exit.performed += instance.OnExit;
+                @Exit.canceled += instance.OnExit;
             }
         }
     }
@@ -245,5 +273,6 @@ public class @NewInput : IInputActionCollection, IDisposable
         void OnMoveX(InputAction.CallbackContext context);
         void OnMoveY(InputAction.CallbackContext context);
         void OnUse(InputAction.CallbackContext context);
+        void OnExit(InputAction.CallbackContext context);
     }
 }
