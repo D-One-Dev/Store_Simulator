@@ -30,7 +30,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Exit",
+                    "name": "Escape",
                     "type": "Button",
                     "id": "24e940f1-1d92-40af-9c5c-d71cac3c79fb",
                     "expectedControlType": "Button",
@@ -123,7 +123,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Exit",
+                    "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

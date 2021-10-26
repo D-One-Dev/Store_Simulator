@@ -43,7 +43,7 @@ public class @NewInput : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Exit"",
+                    ""name"": ""Escape"",
                     ""type"": ""Button"",
                     ""id"": ""24e940f1-1d92-40af-9c5c-d71cac3c79fb"",
                     ""expectedControlType"": ""Button"",
@@ -136,7 +136,7 @@ public class @NewInput : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Exit"",
+                    ""action"": ""Escape"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -156,7 +156,7 @@ public class @NewInput : IInputActionCollection, IDisposable
         m_Gameplay_MoveX = m_Gameplay.FindAction("MoveX", throwIfNotFound: true);
         m_Gameplay_MoveY = m_Gameplay.FindAction("MoveY", throwIfNotFound: true);
         m_Gameplay_Use = m_Gameplay.FindAction("Use", throwIfNotFound: true);
-        m_Gameplay_Exit = m_Gameplay.FindAction("Exit", throwIfNotFound: true);
+        m_Gameplay_Escape = m_Gameplay.FindAction("Escape", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -209,7 +209,7 @@ public class @NewInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_MoveX;
     private readonly InputAction m_Gameplay_MoveY;
     private readonly InputAction m_Gameplay_Use;
-    private readonly InputAction m_Gameplay_Exit;
+    private readonly InputAction m_Gameplay_Escape;
     public struct GameplayActions
     {
         private @NewInput m_Wrapper;
@@ -217,7 +217,7 @@ public class @NewInput : IInputActionCollection, IDisposable
         public InputAction @MoveX => m_Wrapper.m_Gameplay_MoveX;
         public InputAction @MoveY => m_Wrapper.m_Gameplay_MoveY;
         public InputAction @Use => m_Wrapper.m_Gameplay_Use;
-        public InputAction @Exit => m_Wrapper.m_Gameplay_Exit;
+        public InputAction @Escape => m_Wrapper.m_Gameplay_Escape;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -236,9 +236,9 @@ public class @NewInput : IInputActionCollection, IDisposable
                 @Use.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUse;
                 @Use.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUse;
                 @Use.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUse;
-                @Exit.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnExit;
-                @Exit.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnExit;
-                @Exit.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnExit;
+                @Escape.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnEscape;
+                @Escape.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnEscape;
+                @Escape.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnEscape;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -252,9 +252,9 @@ public class @NewInput : IInputActionCollection, IDisposable
                 @Use.started += instance.OnUse;
                 @Use.performed += instance.OnUse;
                 @Use.canceled += instance.OnUse;
-                @Exit.started += instance.OnExit;
-                @Exit.performed += instance.OnExit;
-                @Exit.canceled += instance.OnExit;
+                @Escape.started += instance.OnEscape;
+                @Escape.performed += instance.OnEscape;
+                @Escape.canceled += instance.OnEscape;
             }
         }
     }
@@ -273,6 +273,6 @@ public class @NewInput : IInputActionCollection, IDisposable
         void OnMoveX(InputAction.CallbackContext context);
         void OnMoveY(InputAction.CallbackContext context);
         void OnUse(InputAction.CallbackContext context);
-        void OnExit(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
     }
 }

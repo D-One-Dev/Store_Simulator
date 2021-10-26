@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     //player move speed
     [SerializeField] private float speed;
     //player's hands point, warehouse GameObject
-    [SerializeField] private GameObject playerHands, warehouse;
+    [SerializeField] private GameObject playerHands, warehouse, canvas;
     //is player on the warehouse
     private bool isOnWarehouse;
     //the box
@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     {
         PI = new NewInput();
         PI.Gameplay.Use.performed += context => Use();
-        PI.Gameplay.Exit.performed += context => SceneManager.LoadScene("Menu");
+        PI.Gameplay.Escape.performed += context => Escape();
     }
     private void OnEnable()
     { PI.Enable(); }
@@ -68,7 +68,23 @@ public class PlayerController : MonoBehaviour
             warehouse.GetComponent<WarehouseController>().SpawnBox();
         }
         //if the palyer is dead restart the level
-        if (!isAlive) SceneManager.LoadScene("Gameplay");
+        if (!isAlive)
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("Gameplay");
+        }
+    }
+    private void Escape()
+    {
+        if(isAlive)
+        {
+            canvas.GetComponent<PauseMenuController>().changeState();
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("Menu");
+        }
     }
     //box drop
     private void DropBox()
