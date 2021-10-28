@@ -1824,6 +1824,7 @@ MonoBehaviour:
   AM: {fileID: 24100000, guid: e47c9c44d4faece4ab0f8aa70cfd7cc6, type: 2}
   resolutionDropdown: {fileID: 1348940783}
   fullscreenToggle: {fileID: 47842424}
+  volumeSlider: {fileID: 1567587797}
 --- !u!1 &993534159
 GameObject:
   m_ObjectHideFlags: 0
@@ -2021,6 +2022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba93861c0269fa44a89fe2e8acf45185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AM: {fileID: 24100000, guid: e47c9c44d4faece4ab0f8aa70cfd7cc6, type: 2}
 --- !u!1 &1012850015
 GameObject:
   m_ObjectHideFlags: 0
@@ -2724,7 +2726,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: V_0.3.2
+  m_text: V_0.3.3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}

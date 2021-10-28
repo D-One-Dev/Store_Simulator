@@ -9,3 +9,5 @@
 0.3.1 => Added menu sounds, changed menu text color
 
 0.3.2 => Added pause menu, bugfix
+
+0.3.3 => Resolution and volume settings are now saving after closing the game

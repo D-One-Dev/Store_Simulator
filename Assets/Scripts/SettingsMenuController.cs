@@ -11,6 +11,8 @@ public class SettingsMenuController : MonoBehaviour
     [SerializeField] private Dropdown resolutionDropdown;
     //fullscreen toggle
     [SerializeField] private Toggle fullscreenToggle;
+
+    [SerializeField] private Slider volumeSlider;
     //list of available resolutions
     private Resolution[] resolutions;
     private void Start()
@@ -25,11 +27,13 @@ public class SettingsMenuController : MonoBehaviour
         List<string> options = new List<string>();
         //creating a list of resolutions
         int currentResolutionIndex = 0;
+        int screenWidth = PlayerPrefs.GetInt("screenWidth", Screen.currentResolution.width);
+        int screenHeight = PlayerPrefs.GetInt("screenHeight", Screen.currentResolution.height);
         for (int i = 0; i < resolutions.Length; i++)
         {
             string option = resolutions[i].width + " X " + resolutions[i].height + " " + resolutions[i].refreshRate + " Hz";
             options.Add(option);
-            if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+            if(resolutions[i].width == screenWidth && resolutions[i].height == screenHeight)
             {
                 //setting current resolution
                 currentResolutionIndex = i;
@@ -39,11 +43,16 @@ public class SettingsMenuController : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+
+
+        volumeSlider.value = PlayerPrefs.GetFloat("audioVolume", 1f);
     }
     public void SetVolume(float volume)
     {
         //setting the audio mixer volume
         AM.SetFloat("MasterVolume", volume);
+
+        PlayerPrefs.SetFloat("audioVolume", volume);
     }
     public void SetFullscreen(bool isFullscreen)
     {
@@ -55,5 +64,8 @@ public class SettingsMenuController : MonoBehaviour
         //changing the resolution
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        //saving resolution parameters in playerPrefs
+        PlayerPrefs.SetInt("screenWidth", resolution.width);
+        PlayerPrefs.SetInt("screenHeight", resolution.height);
     }
 }
