@@ -54,32 +54,53 @@ public class PlayerController : MonoBehaviour
     //everything that is activated vith E button
     private void Use()
     {
-        //if the player is on the warehouse
-        if (isOnWarehouse)
+        if(canvas.GetComponent<TimeController>().isGameWon == false)
         {
-            //get the box
-            box = warehouse.GetComponent<WarehouseController>().currentBox;
+            //if the player is on the warehouse
+            if (isOnWarehouse)
+            {
+                //get the box
+                box = warehouse.GetComponent<WarehouseController>().currentBox;
+            }
+            //if the player is on the shelf
+            if (isOnShelf)
+            {
+                //delete the box, spawn new one
+                Destroy(box.gameObject);
+                warehouse.GetComponent<WarehouseController>().SpawnBox();
+                canvas.GetComponent<ScoreController>().AddScore();
+            }
+            //if the palyer is dead restart the level
+            if (!isAlive)
+            {
+                Time.timeScale = 1f;
+                SceneManager.LoadScene("Gameplay");
+            }
         }
-        //if the player is on the shelf
-        if (isOnShelf)
-        {
-            //delete the box, spawn new one
-            Destroy(box.gameObject);
-            warehouse.GetComponent<WarehouseController>().SpawnBox();
-        }
-        //if the palyer is dead restart the level
-        if (!isAlive)
+        else
         {
             Time.timeScale = 1f;
             SceneManager.LoadScene("Gameplay");
         }
     }
+    //everything that is activated vith ESC button
     private void Escape()
     {
-        if(isAlive)
+        if (canvas.GetComponent<TimeController>().isGameWon == false)
         {
-            canvas.GetComponent<PauseMenuController>().changeState();
+            //pause the game
+            if (isAlive)
+            {
+                canvas.GetComponent<PauseMenuController>().changeState();
+            }
+            //going to menu
+            else
+            {
+                Time.timeScale = 1f;
+                SceneManager.LoadScene("Menu");
+            }
         }
+        //going to menu
         else
         {
             Time.timeScale = 1f;

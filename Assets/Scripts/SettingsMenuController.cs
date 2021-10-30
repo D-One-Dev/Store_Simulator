@@ -43,8 +43,7 @@ public class SettingsMenuController : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
-
-
+        //setting game volume from playerPrefs
         volumeSlider.value = PlayerPrefs.GetFloat("audioVolume", 1f);
     }
     public void SetVolume(float volume)

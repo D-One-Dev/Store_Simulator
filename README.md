@@ -11,3 +11,5 @@
 0.3.2 => Added pause menu, bugfix
 
 0.3.3 => Resolution and volume settings are now saving after closing the game
+
+0.4.0 => Added game end, score and time count
